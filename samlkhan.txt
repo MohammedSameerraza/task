@@ -5,7 +5,9 @@ java
 html
 css
 
-
+java script
+sql
+done by technology
 
 thank you
 
