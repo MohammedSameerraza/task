@@ -1,0 +1,6 @@
+create a new class
+
+enter the data types
+
+enter the values
+enter the main method to execute the program
