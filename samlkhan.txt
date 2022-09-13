@@ -5,6 +5,8 @@ java
 html
 css
 
+java script
+sql
 
 
 thank you
