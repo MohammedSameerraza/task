@@ -1,22 +1,13 @@
-# our base image
-FROM alpine:3.5
+FROM ubuntu as builder
+RUN apt update
+RUN apt install git
+RUN apt install maven
+RUN apt install default-jre
+RUN git clone https://www.github.javarepo.git
+RUN cd javarepo/
+RUN mvn clean install
 
-# Install python and pip
-RUN apk add --update py2-pip
-
-# Install curl
-RUN apk --no-cache add curl
-
-# install Python modules needed by the Python app
-COPY requirements.txt /usr/src/app/
-RUN pip install --no-cache-dir -r /usr/src/app/requirements.txt
-
-# copy files required for the app to run
-COPY app.py /usr/src/app/
-COPY templates/index.html /usr/src/app/templates/
-
-# tell the port number the container should expose
-EXPOSE 5000
-
-# run the application
-CMD ["Dockerfile", "/usr/src/app/app.py"]
+FORM tomcat
+COPY --from=builder javarepo/target/*.war /webapps
+EXPOSE 8080
+ENTRYPOINT ./bin/startup.sh
